@@ -11,13 +11,7 @@ module.exports = {
             user_email: Joi.string().email().required(),
             user_name: Joi.string().required(),
             user_birthday: Joi.date().required(),
-            user_gender: Joi.string()
-                .valid(
-                    'masculino',
-                    'feminino'
-                )
-                .insensitive()
-                .required(),
+            user_gender: Joi.string().required(),
             user_password: Joi.string().required().min(8).max(24),
         }),
     }),

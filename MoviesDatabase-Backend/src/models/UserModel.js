@@ -27,7 +27,7 @@ module.exports = {
         return result;
     },
 
-    deleteById(user_id) {
+    async deleteById(user_id) {
         const result = await connection('user')
             .where({ user_id })
             .first()

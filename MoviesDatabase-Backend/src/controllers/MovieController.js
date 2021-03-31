@@ -6,8 +6,10 @@ module.exports = {
         try {
             const newMovie = request.body;
             newMovie.movie_id = uuidv4();
+            const { movie_user_id } = request.params;
+            newMovie.movie_user_id = movie_user_id;
             const result = await MovieModel.create(newMovie);
-            return response.status(200).json({ id: movie.movie_id })
+            return response.status(200).json({ notification: "Movie was created successfully" })
         } catch (error) {
             console.error(error);
 
@@ -19,7 +21,8 @@ module.exports = {
 
     async getAll(request, response) {
         try {
-            const result = await MovieModel.getAll();
+            const { movie_user_id } = request.params;
+            const result = await MovieModel.getAll(movie_user_id);
 
             return response.status(200).json(result);
         } catch (error) {
@@ -30,10 +33,10 @@ module.exports = {
         }
     },
 
-    async GeyById(request, response) {
+    async getById(request, response) {
         try {
-            const { movie_id } = request.params;
-            const result = await MovieModel.getById(movie_id);
+            const { movie_user_id, movie_id } = request.params;
+            const result = await MovieModel.getById(movie_user_id, movie_id);
 
             return response.status(200).json(result);
         } catch (error) {
@@ -45,10 +48,10 @@ module.exports = {
 
     async update(request, response) {
         try {
-            const { movie_id } = request.params;
+            const { movie_user_id, movie_id } = request.params;
             const UpdatedMovie = request.body;
 
-            const result = await MovieModel.updateById(movie_id, UpdatedMovie);
+            const result = await MovieModel.updateById(movie_user_id, movie_id, UpdatedMovie);
 
             return response.status(200).json(result);
         } catch (error) {
@@ -61,8 +64,8 @@ module.exports = {
 
     async delete(request, response) {
         try {
-            const { movie_id } = request.params;
-            const result = await MovieModel.deleteById(movie_id);
+            const { movie_user_id, movie_id } = request.params;
+            const result = await MovieModel.deleteById(movie_user_id, movie_id);
 
             return response.status(200).json(result);
         } catch (error) {

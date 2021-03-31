@@ -11,9 +11,9 @@ module.exports = {
                 newUser.user_email, newUser.user_password
             )
             //LEMBRAR DE ATIVAR PARA AS SENHAS NAO IREM PARA O BANCO DE DADOS
-            delete newAdm.user_password
             const result = await UserModel.create(newUser);
-            return response.status(200).json({ id: user.user_id })
+            delete newUser.user_password
+            return response.status(200).json({ notification: "User was created successfully" })
         } catch (error) {
             console.error(error);
 

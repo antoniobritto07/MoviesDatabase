@@ -10,10 +10,10 @@ module.exports = {
             newAdm.adm_firebase = await firebase.createNewUser(
                 newAdm.adm_email, newAdm.adm_password
             )
+            const result = await AdmModel.create(newAdm);
             //LEMBRAR DE ATIVAR PARA AS SENHAS NAO IREM PARA O BANCO DE DADOS
             delete newAdm.adm_password
-            const result = await AdmModel.create(newAdm);
-            return response.status(200).json({ id: administrador.administrador_id })
+            return response.status(200).json({ notification: "Adm was created successfully" })
         } catch (error) {
             console.error(error);
 
@@ -38,8 +38,8 @@ module.exports = {
 
     async getById(request, response) {
         try {
-            const { administrador_id } = request.params;
-            const result = await AdmModel.getById(administrador_id);
+            const { adm_id } = request.params;
+            const result = await AdmModel.getById(adm_id);
 
             return response.status(200).json(result);
         } catch (error) {
@@ -51,10 +51,10 @@ module.exports = {
 
     async update(request, response) {
         try {
-            const { administrador_id } = request.params;
+            const { adm_id } = request.params;
             const UpdatedAdm = request.body;
 
-            const result = await AdmModel.updateById(administrador_id, UpdatedAdm);
+            const result = await AdmModel.updateById(adm_id, UpdatedAdm);
 
             return response.status(200).json(result);
         } catch (error) {
@@ -67,8 +67,8 @@ module.exports = {
 
     async delete(request, response) {
         try {
-            const { administrador_id } = request.params;
-            const result = await AdmModel.deleteById(administrador_id);
+            const { adm_id } = request.params;
+            const result = await AdmModel.deleteById(adm_id);
 
             return response.status(200).json(result);
         } catch (error) {

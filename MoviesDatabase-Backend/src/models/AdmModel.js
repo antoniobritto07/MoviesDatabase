@@ -26,7 +26,7 @@ module.exports = {
         return result;
     },
 
-    deleteById(administrador_id) {
+    async deleteById(administrador_id) {
         const result = await connection('administrador')
             .where({ adm_id: administrador_id })
             .first()
@@ -36,7 +36,7 @@ module.exports = {
     },
 
     async getByFields(fields) {
-        const result = await connection('administrator')
+        const result = await connection('administrador')
             .where(fields)
             .select('*')
             .first();

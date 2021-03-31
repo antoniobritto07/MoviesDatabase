@@ -1,9 +1,10 @@
 require("dotenv").config();
 
 const express = require("express");
-const { errors } = require("celebrate");
 const cors = require("cors");
+const { errors } = require("celebrate");
 const routes = require("./routes");
+
 const app = express();
 
 const corsOptions = {

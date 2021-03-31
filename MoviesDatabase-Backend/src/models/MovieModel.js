@@ -6,30 +6,31 @@ module.exports = {
         return result;
     },
 
-    async getAll() {
+    async getAll(movie_user_id) {
         const result = await connection('movie')
+            .where({ movie_user_id })
             .select('*');
         return result;
     },
 
-    async getById(movie_id) {
+    async getById(movie_user_id, movie_id) {
         const result = await connection('movie')
-            .where({ movie_id })
+            .where({ movie_user_id, movie_id })
             .select('*')
             .first();
         return result;
     },
 
-    async updateById(movie_id, movie) {
+    async updateById(movie_user_id, movie_id, movie) {
         const result = await connection('movie')
-            .where({ movie_id })
+            .where({ movie_user_id, movie_id })
             .update(movie);
         return result;
     },
 
-    deleteById(movie_id) {
+    async deleteById(movie_user_id, movie_id) {
         const result = await connection('movie')
-            .where({ movie_id })
+            .where({ movie_user_id, movie_id })
             .first()
             .delete();
 
