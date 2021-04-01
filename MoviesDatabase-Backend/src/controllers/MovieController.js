@@ -22,8 +22,12 @@ module.exports = {
     async getAll(request, response) {
         try {
             const { movie_user_id } = request.params;
-            const result = await MovieModel.getAll(movie_user_id);
-
+            const result = await MovieModel.getAll(
+                movie_user_id,
+                request.params.times,
+                request.params.field,
+                request.params.filter,
+            );
             return response.status(200).json(result);
         } catch (error) {
             console.error(error);

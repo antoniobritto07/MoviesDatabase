@@ -6,10 +6,22 @@ module.exports = {
         return result;
     },
 
-    async getAll(movie_user_id) {
-        const result = await connection('movie')
-            .where({ movie_user_id })
-            .select('*');
+    async getAll(movie_user_id, times, field, filter) {
+        const limit = 50;
+        let result;
+
+        if (filter && field) {
+            result = await connection('movie')
+                .where(field, 'ilike', `%${filter}`)
+                .select('*')
+                .limit(limit)
+                .offset(limit * times);
+        } else {
+            result = await connection('movie')
+                .select('*')
+                .limit(limit)
+                .offset(limit * times);
+        }
         return result;
     },
 

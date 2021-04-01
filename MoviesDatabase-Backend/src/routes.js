@@ -23,7 +23,7 @@ routes.post('/login', SessionValidator.signIn, SessionController.signIn)
 //Administrador
 //LEMBRAR DE ADICIONAR O TOKEN DE VALIDAÇÃO EM TODAS AS ROTAS DEPOIS QUANDO ESTIVER FUNCIONANDO
 routes.post('/adm', AdmValidator.create, AdmController.create);
-routes.get('/adm', AdmController.getAll);
+routes.get('/adm', Authorization.authenticateToken, AdmController.getAll);
 routes.get('/adm/:adm_id', AdmValidator.getById, AdmController.getById);
 routes.put('/adm/:adm_id', AdmValidator.update, AdmController.update);
 routes.delete('/adm/:adm_id', AdmValidator.delete, AdmController.delete);
