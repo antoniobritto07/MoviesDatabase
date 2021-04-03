@@ -1,6 +1,6 @@
 require('dotenv').config();
-const Firebase = require("../utils/firebase");
 const jwt = require("jsonwebtoken");
+const Firebase = require("../utils/firebase");
 const AdmModel = require("../models/AdmModel");
 const UserModel = require("../models/UserModel");
 
@@ -22,14 +22,16 @@ module.exports = {
             let user;
             if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
                 user = await AdmModel.getByFields({ adm_firebase: uid_firebase })
+                // user.type = "administrador"
             }
             else {
                 user = await UserModel.getByFields({ user_firebase: uid_firebase })
+                // user.type = "usuario"
             }
-
             const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: "1h",
             })
+        
             return response.status(200).json({ user, accessToken });
         } catch (error) {
             console.error(error)

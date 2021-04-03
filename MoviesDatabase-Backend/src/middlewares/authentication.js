@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require("jsonwebtoken");
 
 module.exports = {
@@ -19,5 +20,15 @@ module.exports = {
 
       next();
     });
+  },
+
+  async isUserAdmin(request, response, next) {
+    if (request.session.user.adm_email === process.env.ADMIN_EMAIL
+      && request.session.user.adm_password === process.env.ADMIN_PASSWORD) {
+      next();
+    }
+    else {
+      response.status(403).json({ error: "Access denied. The user logged is forbidden to do this operation." });
+    }
   },
 };
